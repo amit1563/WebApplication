@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+//@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 public class WebportalApplication {
 
 	public static void main(String[] args) {

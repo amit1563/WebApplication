@@ -19,6 +19,8 @@ import com.abcwebportal.webportal.model.user.User;
 import com.abcwebportal.webportal.services.UserService;
 import com.abcwebportal.webportal.validator.UserValidator;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Rest Controller to handle {@link User} related enpoints
  *
@@ -47,6 +49,7 @@ public class UserController {
 	 * 
 	 */
 	@RequestMapping(value = "/register")
+	@ApiOperation(value = "1", protocols = "http", notes = " This endpoint is for user regestration ")
 	public ResponseEntity<?> signup(@Valid @RequestBody User user, BindingResult result) {
 		ResponseEntity<?> errorMap = fieldErrorHandler.mapValidationError(result);
 		userValidator.validate(user);
