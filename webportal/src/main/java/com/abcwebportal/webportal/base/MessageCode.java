@@ -20,6 +20,8 @@ public class MessageCode {
 
 	public static MessageCode PORATG001UserNotFound;
 	public static MessageCode PORTALG002UserExist;
+	public static MessageCode PORTALG003AuthinticationError;
+	public static MessageCode PORTALG004InvalidCredential;
 
 	public static Map<MessageCode, String> allCodes = new HashMap<MessageCode, String>();
 
@@ -71,6 +73,8 @@ public class MessageCode {
 
 		MessageCode.allCodes.put(PORATG001UserNotFound, " User Not Found Exception ");
 		allCodes.put(PORTAL001InteractionException, " internal server Error");
+		allCodes.put(PORTALG003AuthinticationError, " Could not set user authentication in security context ");
+		allCodes.put(PORTALG004InvalidCredential, "Invalid Credentials please try again !!");
 
 		Field[] fields = messageCodeClass.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {

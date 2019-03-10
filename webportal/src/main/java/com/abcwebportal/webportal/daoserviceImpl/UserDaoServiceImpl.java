@@ -3,6 +3,7 @@ package com.abcwebportal.webportal.daoserviceImpl;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.abcwebportal.webportal.base.MessageCode;
@@ -21,6 +22,8 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 	@Autowired
 	private UserRepository repository;
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public User findUserByUserName(String username) {
@@ -44,7 +47,9 @@ public class UserDaoServiceImpl implements UserDaoService {
 	public User save(@Valid User user) {
 		User userObj = null;
 		userObj = findUserByUserName(user.getUsername());
+
 		if (userObj == null) {
+			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			repository.save(user);
 		} else {
 			throw new WebPortalRuntimeException(MessageCode.PORTALG002UserExist);

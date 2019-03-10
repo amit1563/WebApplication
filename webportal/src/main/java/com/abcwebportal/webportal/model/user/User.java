@@ -1,5 +1,6 @@
 package com.abcwebportal.webportal.model.user;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,12 +16,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * User POJO
  *
  */
 @Entity
-public class User {
+public class User implements UserDetails {
 
 	/**
 	 * 
@@ -49,17 +53,6 @@ public class User {
 
 	private Date create_At;
 	private Date update_At;
-
-	/**
-	 * One user will have many projects . Loading should be eager and cascade
-	 * refresh.
-	 */
-
-	/*
-	 * @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH, mappedBy =
-	 * "user", orphanRemoval = true) private List<Project> projects = new
-	 * ArrayList<>();
-	 */
 
 	@PrePersist
 	protected void onCreate() {
@@ -141,23 +134,32 @@ public class User {
 
 	// UserDetails interface implementation start here
 
-	/*
-	 * @Override public Collection<? extends GrantedAuthority> getAuthorities() {
-	 * return null; }
-	 * 
-	 * @Override public boolean isAccountNonExpired() { return true; }
-	 * 
-	 * @Override public boolean isAccountNonLocked() { return true; }
-	 * 
-	 * @Override public boolean isCredentialsNonExpired() { return true; }
-	 * 
-	 * @Override public boolean isEnabled() { return true; }
-	 * 
-	 * public List<Project> getProjects() { return projects; }
-	 * 
-	 * public void setProjects(List<Project> projects) { this.projects = projects; }
-	 */
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
 
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	// UserDetails interface implementation end here
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

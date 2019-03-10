@@ -3,6 +3,9 @@ package com.abcwebportal.webportal.serviceimpl;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +20,7 @@ import com.abcwebportal.webportal.services.UserService;
  */
 @Component
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	UserDaoService daoService;
@@ -77,6 +80,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getByUserId(Long id) {
 		return daoService.getByUserId(id);
+	}
+
+	/**
+	 * <p>
+	 * Implementaion of UserDetailsService mandatory method. Read about actual
+	 * implementation
+	 * </p>
+	 */
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDetails details = findUserByUserName(username);
+		if (details == null)
+			throw new WebPortalRuntimeException(MessageCode.PORATG001UserNotFound);
+		return findUserByUserName(username);
 	}
 
 }
