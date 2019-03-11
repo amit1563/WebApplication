@@ -1,3 +1,3 @@
 # WebApplication
-A simple web based application with Spring boot 
+A simple Rest api with Spring boot 
 
